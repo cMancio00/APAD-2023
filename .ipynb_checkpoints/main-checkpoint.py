@@ -14,7 +14,7 @@ def read_csv(name:str, path:str = "Data")->pd.DataFrame:
     path + "/" + name,
     delimiter=";",
     usecols=cols,
-    #nrows=500
+    nrows=2000
     )
     df.name = name.split(".")[0]
     df.rename(columns={"editor":"author"}, inplace=True)
@@ -95,14 +95,14 @@ def get_largest_connected_component(G:nx.Graph)->nx.Graph:
     sorted(nx.connected_components(G), key = len, reverse=True)[0]
     ).copy()
     
-def find_farther_node(G,starting_node:str)->list:
+def find_farther_node(starting_node:str)->list:
     edges = nx.bfs_edges(G,starting_node)
     edges = [starting_node] + [v for u, v in edges]
     return list(G.edges(edges[-1]))[0][0]
 
 def two_sweep_path(G:nx.Graph,starting_node:str)->list:
-    a = find_farther_node(G,starting_node)
-    b = find_farther_node(G,a)
+    a = find_farther_node(starting_node)
+    b = find_farther_node(a)
     return nx.shortest_path(G,a,b)
 
 def calculate_starting_node(G:nx.Graph)->str:
