@@ -14,7 +14,7 @@ def read_csv(name:str, path:str = "Data")->pd.DataFrame:
     path + "/" + name,
     delimiter=";",
     usecols=cols,
-    #nrows=500
+    #nrows=1000
     )
     df.name = name.split(".")[0]
     df.rename(columns={"editor":"author"}, inplace=True)
